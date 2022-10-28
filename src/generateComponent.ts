@@ -54,26 +54,6 @@ async function writeComponentsFolderIndexFile(
   const componentsFolderIndexContents = await readFile(
     componentsFolderIndexPath
   );
-
-  if (componentsFolderIndexContents) {
-    writeFile(
-      componentsFolderIndexPath,
-      componentsFolderIndexContents.concat(
-        exportLineTemplate(
-          componentName,
-          true
-        )
-      )
-    );
-  } else {
-    writeFile(
-      componentsFolderIndexPath,
-      exportLineTemplate(
-        componentName,
-        true
-      )
-    );
-  }
 }
 
 async function writeComponentFiles(
