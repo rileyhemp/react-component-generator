@@ -17,6 +17,7 @@ import {
   Language,
   StyleLanguage,
 } from './types';
+import { stylesDeclarationTemplate } from './templates/stylesDeclarationTemplate';
 
 async function directoryToAddComponent(
   uri: Uri
@@ -100,7 +101,13 @@ async function writeComponentFiles(
   // Write style file
   writeFile(
     `${directory}/${componentName}/${componentName}.${stylesLanguage}`,
-    stylesTemplate(componentName)
+    stylesTemplate()
+  );
+
+  // Write style declaration file
+  writeFile(
+    `${directory}/${componentName}/${componentName}.${stylesLanguage}.d.ts`,
+    stylesDeclarationTemplate()
   );
 
   // Write stories file

@@ -1,9 +1,5 @@
-export function stylesTemplate(
-  componentName: string
-) {
+export function stylesTemplate() {
   return `
-.${componentName} {
-  
-}
+.wrapper {}
 `.trimLeft();
 }

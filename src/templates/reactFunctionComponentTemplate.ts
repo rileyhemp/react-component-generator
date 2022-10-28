@@ -5,16 +5,12 @@ export function reactFunctionComponentTemplate(
   stylesLanguage: StyleLanguage = StyleLanguage.scss
 ) {
   return `
-import React from 'react';
-
 import styles from './${componentName}.${stylesLanguage}';
 
-export interface I${componentName}Props {
-  prop?: string;
-}
+export interface I${componentName}Props {}
 
-export function ${componentName}({{prop = 'default value'}}: ${componentName}Props) {
-  return <div className={styles.${componentName}}>${componentName} {prop}</div>;
+export default function ${componentName}({}: I${componentName}Props) {
+  return <div className={styles.wrapper></div>;
 }
 `.trimLeft();
 }
