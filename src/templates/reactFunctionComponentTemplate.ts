@@ -9,12 +9,11 @@ import React from 'react';
 
 import styles from './${componentName}.${stylesLanguage}';
 
-export interface ${componentName}Props {
-  prop?: string;
+export interface I${componentName}Props {
 }
 
-export function ${componentName}({prop = 'default value'}: ${componentName}Props) {
-  return <div className={styles.${componentName}}>${componentName} {prop}</div>;
+export function ${componentName}({}: ${componentName}Props) {
+  return <></>;
 }
 `.trimLeft();
 }

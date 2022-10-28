@@ -1,7 +1,3 @@
-export function stylesTemplate(componentName: string) {
-  return `
-.${componentName} {
-  
-}
-`.trimLeft();
+export function stylesTemplate() {
+  return ``.trimLeft();
 }

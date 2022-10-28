@@ -3,6 +3,6 @@ export function exportLineTemplate(
   componentsFolderIndex?: boolean
 ) {
   return componentsFolderIndex
-    ? `export {${componentName}} from './${componentName}';\n`
-    : `export * from './${componentName}';\n`;
+    ? `import componentName from './${componentName}';\n`
+    : `export default ${componentName}\n`;
 }

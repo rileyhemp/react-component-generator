@@ -1,4 +1,4 @@
-import {window, Uri} from 'vscode';
+import { window, Uri } from 'vscode';
 
 import {
   writeFile,
@@ -10,20 +10,26 @@ import {
 import {
   exportLineTemplate,
   reactFunctionComponentTemplate,
-  testFileTemplate,
   stylesTemplate,
   storiesTemplate,
 } from './templates';
-import {Language, StyleLanguage} from './types';
+import {
+  Language,
+  StyleLanguage,
+} from './types';
 
-async function directoryToAddComponent(uri: Uri) {
-  const {path} = uri;
+async function directoryToAddComponent(
+  uri: Uri
+) {
+  const { path } = uri;
 
   // If user clicked on a components folder, we want to add our new component there
   if (path.endsWith('components')) {
     return path;
     // If user clicks on a parent folder, we want to add our component to ParentFolder/components
-  } else if (await readDirectory(path)) {
+  } else if (
+    await readDirectory(path)
+  ) {
     return path.concat('/components');
   }
 
@@ -53,29 +59,47 @@ async function writeComponentsFolderIndexFile(
     writeFile(
       componentsFolderIndexPath,
       componentsFolderIndexContents.concat(
-        exportLineTemplate(componentName, true)
+        exportLineTemplate(
+          componentName,
+          true
+        )
       )
     );
   } else {
     writeFile(
       componentsFolderIndexPath,
-      exportLineTemplate(componentName, true)
+      exportLineTemplate(
+        componentName,
+        true
+      )
     );
   }
 }
 
-async function writeComponentFiles(directory: string, componentName: string) {
-  const language = getSetting<Language>('language', Language.typeScript);
+async function writeComponentFiles(
+  directory: string,
+  componentName: string
+) {
+  const language = getSetting<Language>(
+    'language',
+    Language.typeScript
+  );
   const stylesLanguage = getSetting<StyleLanguage>(
     'stylesLanguage',
     StyleLanguage.scss
   );
-  const createStoriesFile = getSetting<boolean>('createStoriesFile', false);
+  const createStoriesFile = getSetting<boolean>(
+    'createStoriesFile',
+    false
+  );
   const verboseStoriesComments = getSetting<boolean>(
     'verboseStoriesComments',
     true
   );
-  const useIndexFile = getSetting<boolean>('useIndexFile', true);
+  const useIndexFile = getSetting<boolean>(
+    'useIndexFile',
+    true
+  );
 
   // Write index file
   writeFile(
@@ -87,32 +111,41 @@ async function writeComponentFiles(directory: string, componentName: string) {
   const componentPath = `${directory}/${componentName}/${componentName}.${language}x`;
   const componentPromise = writeFile(
     componentPath,
-    reactFunctionComponentTemplate(componentName, stylesLanguage)
+    reactFunctionComponentTemplate(
+      componentName,
+      stylesLanguage
+    )
   );
 
   // Write style file
   writeFile(
     `${directory}/${componentName}/${componentName}.${stylesLanguage}`,
-    stylesTemplate(componentName)
-  );
-
-  // Write test file
-  writeFile(
-    `${directory}/${componentName}/tests/${componentName}.test.${language}x`,
-    testFileTemplate(componentName)
+    stylesTemplate()
   );
 
   // Write stories file
   if (createStoriesFile) {
     writeFile(
       `${directory}/${componentName}/${componentName}.stories.${language}x`,
-      storiesTemplate(componentName, verboseStoriesComments)
+      storiesTemplate(
+        componentName,
+        verboseStoriesComments
+      )
     );
   }
 
   // Write components folder index file
-  if (useIndexFile && !directory.endsWith('app/components')) {
-    writeComponentsFolderIndexFile(directory, componentName, language);
+  if (
+    useIndexFile &&
+    !directory.endsWith(
+      'app/components'
+    )
+  ) {
+    writeComponentsFolderIndexFile(
+      directory,
+      componentName,
+      language
+    );
   }
 
   await componentPromise;
@@ -120,20 +153,33 @@ async function writeComponentFiles(directory: string, componentName: string) {
 }
 
 // This is the function that gets registered to our command
-export async function generateComponent(uri?: Uri) {
+export async function generateComponent(
+  uri?: Uri
+) {
   if (!uri) {
-    return window.showErrorMessage('No file path found.');
+    return window.showErrorMessage(
+      'No file path found.'
+    );
   }
 
-  const componentName = await window.showInputBox({
-    prompt: 'Component name',
-  });
+  const componentName = await window.showInputBox(
+    {
+      prompt: 'Component name',
+    }
+  );
 
   if (!componentName) {
-    return window.showErrorMessage('No component name passed');
+    return window.showErrorMessage(
+      'No component name passed'
+    );
   }
 
-  const directory = await directoryToAddComponent(uri);
+  const directory = await directoryToAddComponent(
+    uri
+  );
 
-  writeComponentFiles(directory, componentName);
+  writeComponentFiles(
+    directory,
+    componentName
+  );
 }
