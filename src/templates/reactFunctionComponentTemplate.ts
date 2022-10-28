@@ -10,7 +10,7 @@ import styles from './${componentName}.${stylesLanguage}';
 export interface I${componentName}Props {}
 
 export default function ${componentName}({}: I${componentName}Props) {
-  return <div className={styles.wrapper></div>;
+  return <div className={styles.wrapper}></div>;
 }
 `.trimLeft();
 }
