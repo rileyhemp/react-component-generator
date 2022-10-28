@@ -100,7 +100,7 @@ async function writeComponentFiles(
   // Write style file
   writeFile(
     `${directory}/${componentName}/${componentName}.${stylesLanguage}`,
-    stylesTemplate()
+    stylesTemplate(componentName)
   );
 
   // Write stories file
