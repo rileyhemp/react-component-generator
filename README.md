@@ -4,13 +4,9 @@ A VS Code extension for generating new React component files with the following 
 
 - `StartingComponent`
   - `/components`
-    - `index.ts`
     - `/NewComponent`
       - `index.ts`
       - `NewComponent.tsx`
-      - `NewComponent.stories.tsx` (optional)
-      - `/tests`
-        - `NewComponent.test.tsx`
 
 ## Features
 
